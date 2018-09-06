@@ -15,6 +15,14 @@ if [ "$KOKORO_BUILD_ID" ]; then
     sudo apt-get update -y
     sudo apt-get --assume-yes --force-yes install clang-$CLANG_VERSION
 
+    # download and install emscripten SDK after installing LLVM
+    curl -L https://github.com/juj/emsdk/archive/0d8576c.zip > emsdk.zip
+    unzip emsdk.zip
+    mv emsdk-* emsdk
+    emsdk/emsdk update
+    emsdk/emsdk install sdk-1.38.11-64bit
+    emsdk/emsdk activate sdk-1.38.11-64bit
+
     mkdir -p clang
     cd clang
 
